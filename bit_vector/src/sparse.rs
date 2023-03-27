@@ -81,7 +81,7 @@ impl SparseArray{
     }
 
     pub fn size(&self) -> usize {
-        // get size of sparse array in bits (value vector, bit vector, and extra (rank) data structure)
+        // get size of sparse array in bits (value vector, and extra (rank) data structure)
         return self.select_support.overhead()+ self.values.get_heap_size()*8;
     }
 
