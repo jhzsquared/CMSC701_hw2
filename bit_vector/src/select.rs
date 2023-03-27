@@ -23,7 +23,7 @@ impl SelectSupport{
         let mut R: usize = self.rank_support.bit_v.len()-1;
         
         let mut rank:usize;
-        let mut m: usize = 0;
+        let mut m: usize;
         while L < R{
             // get new splice
             m = div_floor(L+R,2);

@@ -24,7 +24,9 @@ pub struct SparseArray{
 impl SparseArrayBuilder{
     //build sparse array 
     pub fn create(size: usize) -> SparseArrayBuilder {
-        let mut array: SparseArrayBuilder = SparseArrayBuilder {bit_v: BitVec::with_capacity(size), values: Vec::new()};
+        // let mut array: SparseArrayBuilder = SparseArrayBuilder {bit_v: BitVec::with_capacity(size), values: Vec::new()}; 
+        // weird error is occuring where bit_v has extra ones. so fixing by initiating it with 0 value bitvec
+        let mut array: SparseArrayBuilder = SparseArrayBuilder {bit_v: bitvec![0;size], values: Vec::new()};
         unsafe{array.bit_v.set_len(size)};
         return array;
     }
@@ -69,7 +71,7 @@ impl SparseArray{
         if r > self.values.len(){ // r is impossibly big
             return None;
         } else{
-            return Some(self.select_support.select1(r)-1);
+            return Some((self.select_support.select1(r) as i64 -1)as usize);
         }
     } 
 

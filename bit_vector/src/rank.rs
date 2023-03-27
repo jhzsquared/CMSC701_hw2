@@ -78,7 +78,7 @@ impl RankSupport{
         let chunk_loc: usize = div_floor(i, chunk_size);
         let subchunk_loc: usize =  div_floor(i % chunk_size, subchunk_size);
         let remainder: isize = (i as isize)-((chunk_size*chunk_loc+subchunk_size*subchunk_loc) as isize);
-        let mut sum_rank: usize;
+        let sum_rank: usize;
         // sum all cumulative ranks and rank within subchunk together
         if (chunk_loc*chunk_size+subchunk_loc*subchunk_size)+(remainder as usize) <= self.bit_v.len() {
             sum_rank = self.rank_struct.0[chunk_loc] 
@@ -90,8 +90,6 @@ impl RankSupport{
                 + self.rank_struct.1[chunk_loc][subchunk_loc]
                 + &self.bit_v[(chunk_loc*chunk_size+subchunk_loc*subchunk_size)..].count_ones();
         }
-        
-        assert_eq!(sum_rank, self.bit_v[0..i].count_ones()); //debug
         return sum_rank;
     }
 }
